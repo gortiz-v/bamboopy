@@ -48,13 +48,13 @@ class Employee(Resource):
     def __init__(self, raw, fields=[], **kwargs):
         super(Employee, self).__init__(raw, **kwargs)
 
-        self.id = self._raw['id']
+        self.id = int(self._raw['id'])
         self.fields = {}
         self.categories = None
 
         for field in fields:
             if isinstance(field, str):
-                self.fields[field] = self._raw[field]
+                self.fields[field] = self._raw.get(field, None)
             else:
                 self.fields[field.id] = prop_type_map.get(field.type, str)(self._raw[field.id])
 
