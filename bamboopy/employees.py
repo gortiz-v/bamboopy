@@ -1,10 +1,9 @@
 import hashlib
 from bamboopy import logging_helper
 from bamboopy import BaseClient
-
 from bamboopy.resources import Directory, Employee, FilesCategory
 
-SSD_API_VERSION = 1
+API_VERSION = 1
 
 
 class Employees(BaseClient):
@@ -13,7 +12,7 @@ class Employees(BaseClient):
         self.log = logging_helper.get_log('bamboopy.employees')
 
     def _get_path(self, subpath):
-        return "v{}/{}".format(self.options.get('version') or SSD_API_VERSION, subpath)
+        return "v{}/{}".format(self.options.get('version') or API_VERSION, subpath)
 
     def _employee_id(self, value):
         if not isinstance(value, str):
