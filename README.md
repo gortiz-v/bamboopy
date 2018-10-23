@@ -8,14 +8,13 @@ This library require two additional libraries (xmltodic, rfc6266) to handle some
 To use this library you can do
 
 ```python
-from bamboopy import SingleDimensionalData
+from bamboopy import Employees
 
-ssd = SingleDimensionalData(
+employees = Employees(
     api_key='MYCOMPANYAPIKEY',
-    company='companyname',
-)
+    company='companyname')
 
-employees = ssd.get_directory()
+employees = employees.directory()
 
 ```
 This will give you a list of employees
@@ -23,14 +22,14 @@ This will give you a list of employees
 You can also upload files to BambooHR
 
 ```python
-from bamboopy import SingleDimensionalData
+from bamboopy import Employees
 
-ssd = SingleDimensionalData(
+employees = Employees(
     api_key='MYCOMPANYAPIKEY',
-    company='companyname',
-)
+    company='companyname')
 
-ssd.upload_employee_file(
+
+employees.upload_file(
     123,
     category=12,
     file='./Contract_template.pdf',

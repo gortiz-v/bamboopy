@@ -10,4 +10,5 @@ from bamboopy.error import BambooServerError
 from bamboopy import logging_helper
 from bamboopy.base import BaseClient
 
-from bamboopy.sdd import SingleDimensionalData
+from bamboopy.company import Company
+from bamboopy.employees import Employees
