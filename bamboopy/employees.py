@@ -34,9 +34,13 @@ class Employees(BaseClient):
         data.update(field_data)
         return self._call("employees/", method='POST', data=data, **options)
 
-    def get(self, employee_id, fields=[], **options):
+    def get(self, employee_id, fields=None, **options):
         fields = fields or ['firstName', 'lastName']
-        return Employee(self._call("employees/%s" % self._employee_id(employee_id), query='fields={}'.format(",".join(fields)), **options), fields)
+        result = self._call("employees/%s" % self._employee_id(employee_id), query='fields={}'.format(",".join(fields)), **options)
+        if not result:
+            return
+
+        return Employee(result, fields)
 
     def update(self, employee_id, field_data=None, **options):
         field_data = field_data or {}
