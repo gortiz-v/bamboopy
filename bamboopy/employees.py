@@ -1,3 +1,4 @@
+import hashlib
 from bamboopy import logging_helper
 from bamboopy import BaseClient
 
@@ -106,3 +107,25 @@ class Employees(BaseClient):
             filename = self._path_leaf(file)
         data = {'category': category, 'fileName': filename, 'share': 'yes' if share else 'no'}
         return self._call("employees/%s/files/" % self._employee_id(employee_id), method='POST', data=data, files=file, **options)
+
+    # Photos
+
+    def download_photo(self, employee_id, **options):
+        """Download an employee photo."""
+        return self._call("employees/%s/photo/small" % self._employee_id(employee_id), **options)
+
+    def upload_photo(self, employee_id, file, **options):
+        """Upload an employee photo."""
+        return self._call("employees/%s/photo" % self._employee_id(employee_id), method='POST', files=file, **options)
+
+    def photo_url(self, employee_id):
+        employee = self.get(employee_id, fields=['workEmail', 'homeEmail'])
+        if not employee:
+            return
+
+        email = employee.fields['workEmail'] or employee.fields['homeEmail']
+        return "https://{}.bamboohr.com/employees/photos/?h={}".format(
+            self.company,
+            hashlib.md5(email.strip().lower().encode('utf-8')).hexdigest()
+        )
+
