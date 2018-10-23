@@ -12,3 +12,4 @@ from bamboopy.base import BaseClient
 
 from bamboopy.company import Company
 from bamboopy.employees import Employees
+from bamboopy.meta import Meta

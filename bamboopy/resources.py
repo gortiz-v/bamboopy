@@ -45,7 +45,7 @@ class Directory(Resource):
 
 class Employee(Resource):
     """Employee entity resource"""
-    def __init__(self, raw, fields=[], **kwargs):
+    def __init__(self, raw, fields=None, **kwargs):
         super(Employee, self).__init__(raw, **kwargs)
 
         self.id = int(self._raw['id'])
@@ -100,3 +100,29 @@ class FilesCategory(Resource):
                 self.files = [File(x) for x in self._raw['file']]
             else:
                 self.files = [File(self._raw['file'])]
+
+
+class User(Resource):
+    """User entity resource"""
+    def __init__(self, *args, **kwargs):
+        super(User, self).__init__(*args, **kwargs)
+        self.id = int(self._raw['id'])
+        self.employee_id = self._raw['employeeId']
+        self.first_name = self._raw['firstName']
+        self.last_name = self._raw['lastName']
+        self.email = self._raw['email']
+        self.status = self._raw['status']
+        last_login = self._raw.get('lastLogin')
+        if last_login:
+            self.last_login = datetime.strptime(last_login[0:-6], '%Y-%m-%dT%H:%M:%S')
+
+
+class TabularField(Resource):
+    """Tabular Field entity resource"""
+    def __init__(self, *args, **kwargs):
+        super(TabularField, self).__init__(*args, **kwargs)
+        self.alias = self._raw['alias']
+        self.fields = []
+
+        if self._raw.get('fields'):
+            self.fields = [Field(x) for x in self._raw['fields']]
