@@ -381,5 +381,16 @@ class BambooHR(BaseClient):
         """
         return self._call("employees/%s/photo" % employee_id, method='POST', files=file, **options)
 
-    def get_changed_employee_table(self, table, since):
-        pass
+    def get_changed_employee_table(self, table_name, since):
+        """
+        :param table_name:
+        :type table_name str
+        :param since:
+        :type since: datetime
+        :return:
+        """
+        result = self._call('employees/changed/tables/%s' % table_name, query='since=%s' % since)
+        if not result:
+            return
+
+        return [Field(x) for x in result['employees']]
