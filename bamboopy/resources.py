@@ -102,7 +102,7 @@ class FilesCategory(Resource):
         self.name = self._get('name')
         self.files = []
 
-        if self._raw.get('file'):
+        if self._get('file'):
             if isinstance(self._get('file'), list):
                 self.files = [File(x) for x in self._get('file')]
             else:
@@ -130,7 +130,7 @@ class User(Resource):
     """User entity resource"""
     def __init__(self, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)
-        self.id = int(self._raw['id'])
+        self.id = self._get('id', type=int)
         self.employee_id = self._get('employeeId')
         self.first_name = self._get('firstName')
         self.last_name = self._get('lastName')
