@@ -109,6 +109,23 @@ class FilesCategory(Resource):
                 self.files = [File(self._get('file'))]
 
 
+class Report(Resource):
+    """Report entity resource"""
+    def __init__(self, *args, **kwargs):
+        super(Report, self).__init__(*args, **kwargs)
+
+        self.title = self._get('title')
+        self.fields = []
+        self.employees = []
+
+        if self._get('fields'):
+            self.fields = [Field(x) for x in self._get('fields')]
+
+        if self._get('employees'):
+            fieldlist = list(map(lambda x: x.id, self.fields))
+            self.employees = [Employee(x, fieldlist) for x in self._get('employees')]
+
+
 class User(Resource):
     """User entity resource"""
     def __init__(self, *args, **kwargs):

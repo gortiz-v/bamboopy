@@ -4,6 +4,7 @@ from bamboopy.resources import Directory
 from bamboopy.resources import Employee
 from bamboopy.resources import Field
 from bamboopy.resources import FilesCategory
+from bamboopy.resources import Report
 from bamboopy.resources import TabularField
 from bamboopy.resources import User
 
@@ -112,7 +113,11 @@ class BambooHR(BaseClient):
             xml += '<field id="%s" />' % field
         xml += '</fields>'
 
-        return self._call("reports/custom/", data='<report>%s</report>' % xml, query="format=%s" % format, method='POST', content_type='text/xml')
+        result = self._call("reports/custom/", data='<report>%s</report>' % xml, query="format=%s" % format, method='POST', content_type='text/xml')
+        if not result:
+            return
+
+        return Report(result)
 
     def get_table(self, employee_id, table_name='all'):
         """
