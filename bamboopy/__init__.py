@@ -9,6 +9,4 @@ from bamboopy.error import BambooServerError
 
 from bamboopy import logging_helper
 from bamboopy.base import BaseClient
-
-from bamboopy.company import Company
-from bamboopy.employees import Employees
+from bamboopy.bamboohr import BambooHR
