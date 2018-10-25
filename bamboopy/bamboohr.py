@@ -153,14 +153,14 @@ class BambooHR(BaseClient):
         if not meta:
             return
 
-        return [Field(x) for x in meta.values()]
+        return [Field(x) for x in meta]
 
     def get_tables(self):
         meta = self.get_metadata('tables')
         if not meta:
             return
 
-        return [TabularField(x) for x in meta.values()]
+        return [TabularField(x) for x in meta]
 
     def get_timeoff_balances(self, employee_id, date, precision=1):
         pass
