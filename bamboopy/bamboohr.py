@@ -88,10 +88,39 @@ class BambooHR(BaseClient):
         return self._call("employees/", method='POST', data=data, **options)
 
     def get_custom_report(self, format, fields, filter_duplicates=True, title='', last_changed=''):
-        pass
+        """
+        :param format: one of xml, csv, xls, json, pdf
+        :param fields: a list of field ids or aliases
+        :param filter_duplicates: whether to filter duplicate values when employee has multiple rows
+        :param title: the title to give the custom report
+        :param last_changed: Date in ISO 8601 format, like: 2012-10-17T16:00:00Z
+        :return:
+        """
+        fields = fields or []
+        xml = ''
+        if title:
+            xml += '<title>%s</title>' % title
 
-    def get_table(self, employee_id, table_name):
-        pass
+        if last_changed:
+            xml += '<filters><lastChanged includeNull="no">%s</lastChanged></filters>' % last_changed
+
+        if not filter_duplicates:
+            xml += '<filterDuplicates>no</filterDuplicates>'
+
+        xml += '<fields>'
+        for field in fields:
+            xml += '<field id="%s" />' % field
+        xml += '</fields>'
+
+        return self._call("reports/custom/", data='<report>%s</report>' % xml, query="format=%s" % format, method='POST', content_type='text/xml')
+
+    def get_table(self, employee_id, table_name='all'):
+        """
+        :param employee_id: the employee id
+        :param table_name: http://www.bamboohr.com/api/documentation/tables.php#tables List of valid tables
+        :return:
+        """
+        return self._call('employees/{0}/tables/{1}/'.format(employee_id, table_name))
 
     def get_changed_employees(self, since, type='all'):
         pass
