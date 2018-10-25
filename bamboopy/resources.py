@@ -57,7 +57,6 @@ class Employee(Resource):
 
         self.id = self._get('id', type=float)
         self.fields = {}
-        self.categories = None
 
         for field in fields:
             if isinstance(field, str):
