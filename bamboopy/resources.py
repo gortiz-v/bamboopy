@@ -59,8 +59,10 @@ class Employee(Resource):
         self.fields = {}
 
         for field in fields:
-            if isinstance(field, str) or isinstance(field, int):
+            if isinstance(field, str):
                 self.fields[field] = self._get(field, None)
+            elif isinstance(field, int):
+                self.fields[str(field)] = self._get(str(field), None)
             else:
                 self.fields[field.id] = prop_type_map.get(field.type, str)(self._get(field.id))
 
