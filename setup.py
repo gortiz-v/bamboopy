@@ -28,7 +28,7 @@ from setuptools import setup
 
 setup(
     name='bamboopy',
-    version='0.0.3',
+    version='0.0.4',
     url='https://github.com/gortiz-v/bamboopy',
     license='MIT',
     author='Gerardo Ortiz',
