@@ -121,7 +121,7 @@ class BaseClient(object):
             if isinstance(l, bytes):
                 body += l + b'\r\n'
             else:
-                body += bytes(l, encoding='utf8') + b'\r\n'
+                body += bytes(str(l), encoding='utf8') + b'\r\n'
 
         header = 'multipart/form-data; boundary=' + boundary
         return header, body
