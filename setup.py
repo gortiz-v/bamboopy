@@ -24,17 +24,23 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+import os
 from setuptools import setup
+
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, 'README.md')) as fp:
+    long_description = fp.read()
 
 setup(
     name='bamboopy',
-    version='0.0.6',
+    version='0.0.7',
     url='https://github.com/gortiz-v/bamboopy',
     license='MIT',
     author='Gerardo Ortiz',
     author_email='gortiz@netquest.com',
     description="A python wrapper around BambooHR's APIs",
-    long_description=open('README.md').read(),
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     platforms='OS Independent',
     packages=['bamboopy'],
     include_package_data=True,
