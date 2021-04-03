@@ -1,0 +1,37 @@
+image: python:3.8
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+before_script:
+  - python --version
+  - pip install -r requirements.txt
+
+test:
+  script:
+    - pip install tox flake8
+    - co
+
+
+run:
+  script:
+    - python setup.py sdist
+  artifacts:
+    paths:
+      - dist/*.whl
+
+pages:
+  script:
+    - pip install sphinx sphinx-rtd-theme
+    - cd dock ; make html
+    - mv build/html/ ../public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
