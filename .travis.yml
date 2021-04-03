@@ -3,7 +3,9 @@ python:
   - "3.6"
   - "3.7"
   - "3.8"
+  - "3.9"
 install:
-  - pip install tox-travis
+  - pip install -r requirements.txt
+  - pip install -r test-requirements.txt
 script:
-  - tox -e py36,py37,py38,coverage
+  - pytest
