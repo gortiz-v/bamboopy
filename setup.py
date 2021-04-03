@@ -24,11 +24,22 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+import os
+import re
 from setuptools import setup
+
+ROOT = os.path.dirname(__file__)
+VERSION_RE = re.compile(r'''__version__ = ['"]([0-9.]+)['"]''')
+
+
+def get_version():
+    init = open(os.path.join(ROOT, 'bamboopy', '__init__.py')).read()
+    return VERSION_RE.search(init).group(1)
+
 
 setup(
     name='bamboopy',
-    version='0.0.5',
+    version=get_version(),
     url='https://github.com/gortiz-v/bamboopy',
     license='MIT',
     author='Gerardo Ortiz',

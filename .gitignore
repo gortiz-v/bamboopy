@@ -17,6 +17,11 @@ develop-eggs
 .installed.cfg
 lib
 lib64
+venv
+
+# Coverage
+htmlcov
+coverage.xml
 
 # Installer logs
 pip-log.txt
@@ -34,3 +39,6 @@ nosetests.xml
 
 #setuptools MANIFEST
 MANIFEST
+
+# jetbrains
+.idea/

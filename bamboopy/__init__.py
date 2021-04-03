@@ -10,3 +10,5 @@ from bamboopy.error import BambooServerError
 from bamboopy import logging_helper
 from bamboopy.base import BaseClient
 from bamboopy.bamboohr import BambooHR
+
+__version__ = '2.0.0'
