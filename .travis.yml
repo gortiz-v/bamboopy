@@ -6,4 +6,4 @@ python:
 install:
   - pip install tox-travis
 script:
-  - tox -e py36,py37,py38,flake8,coverage
+  - tox -e py36,py37,py38,coverage
